@@ -1,6 +1,6 @@
 #this code just imports data from kaggle to google colab
 for i in range (1,3):
-  !pip install -U pydicom
+  pip install -U pydicom
   key={"username":"chonorat","key":"372dd2c0fad0556f067a3eb0452e8f77"}
   import json
   out_file = open("kaggle.json",'w+') 
