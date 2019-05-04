@@ -11,5 +11,6 @@ for i in range (1,3):
   !kaggle datasets list
 !kaggle competitions download -c rsna-pneumonia-detection-challenge
 !unzip stage_2_train_images.zip -d train_images
+!unzip stage_2_test_images.zip -d test_images
 !unzip stage_2_detailed_class_info.csv.zip 
 !unzip stage_2_train_labels.csv.zip
