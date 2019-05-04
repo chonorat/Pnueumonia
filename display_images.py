@@ -2,7 +2,7 @@
 # coding: utf-8
 
 # In[ ]:
-!pip install -U pydicom
+
 import pydicom
 import os
 import matplotlib.pyplot as plt
