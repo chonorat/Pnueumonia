@@ -2,7 +2,8 @@
 # coding: utf-8
 
 # In[ ]:
-
+import pandas as pd
+import glob
 
 #merge_info
 labels=pd.read_csv("/content/stage_2_train_labels.csv")
