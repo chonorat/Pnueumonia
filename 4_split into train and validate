@@ -6,6 +6,4 @@ random.shuffle(filenames)
 n_valid_samples = 3100
 train_filenames = filenames[n_valid_samples:]
 valid_filenames = filenames[:n_valid_samples]
-print('n train samples', len(train_filenames))
-print('n valid samples', len(valid_filenames))
 n_train_samples = len(filenames) - n_valid_samples
