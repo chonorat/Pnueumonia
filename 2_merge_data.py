@@ -3,18 +3,6 @@
 
 # In[ ]:
 
-import pydicom
-import os
-import matplotlib.pyplot as plt
-import numpy as np
-import glob
-import pandas as pd
-import tensorflow as tf
-from tensorflow import keras
-import seaborn as sns
-pd.set_option('display.max_rows', 500)
-pd.set_option('display.max_columns', 500)
-pd.set_option('display.width', 1000)
 
 
 #merge_info
