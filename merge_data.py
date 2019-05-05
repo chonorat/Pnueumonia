@@ -35,3 +35,8 @@ for i in range(1,100):
   ds=pydicom.read_file("/content/train_images/"+patID+".dcm")
   images_list2.append([ds.pixel_array,path,classification,x,y,w,h])
 
+#import display images
+actual_images = []
+for filename in glob.glob("/content/train_images/*.dcm"):
+    ds=pydicom.read_file(filename)
+    actual_images.append(ds)
