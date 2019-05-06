@@ -1,9 +1,0 @@
-# load and shuffle filenames
-folder = '/content/train_images/'
-filenames = os.listdir(folder)
-random.shuffle(filenames)
-# split into train and validation filenames
-n_valid_samples = 3100
-train_filenames = filenames[n_valid_samples:]
-valid_filenames = filenames[:n_valid_samples]
-n_train_samples = len(filenames) - n_valid_samples
