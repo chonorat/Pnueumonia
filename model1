@@ -27,43 +27,36 @@ from skimage.transform import resize
 import tensorflow as tf
 from tensorflow import keras
 from matplotlib import pyplot as plt
+import glob
 
 
 
 
+#merge_info
+labels=pd.read_csv("/content/stage_2_train_labels.csv")
+classinfo=pd.read_csv("/content/stage_2_detailed_class_info.csv")
+info1 =pd.concat([classinfo.drop(["patientId"],1), labels], 1)
+info1.fillna(0, inplace=True)
 
 
 # empty dictionary
 pneumonia_locations = {}
-# load table
-with open(os.path.join('/content/stage_2_train_labels.csv'), mode='r') as infile:
-    # open reader
-    reader = csv.reader(infile)
-    # skip header
-    next(reader, None)
-    # loop through rows
-    for rows in reader:
-        # retrieve information
-        filename = rows[0]
-        location = rows[1:5]
-        pneumonia = rows[5]
-        # if row contains pneumonia add label to dictionary
-        # which contains a list of pneumonia locations per filename
-        if pneumonia == '1':
-            # convert string to float to int
-            location = [int(float(i)) for i in location]
-            # save pneumonia location in dictionary
-            if filename in pneumonia_locations:
-                pneumonia_locations[filename].append(location)
-            else:
-                pneumonia_locations[filename] = [location]
+for i in range(1,len(info1)):
+  filename = info1.patientId[i]
+  location = info1.x[i],info1.y[i],info1.width[i],info1.height[i]
+  pneumonia = info1.Target[i]
+  if pneumonia == 1:
+    location = [int(float(i)) for i in location]
+    if filename in pneumonia_locations:
+      pneumonia_locations[filename].append(location)
+    else:
+      pneumonia_locations[filename] = [location]
                 
                 
                 
-                
-                
-                
-                
+       
+       
+
 # load and shuffle filenames
 folder = '/content/train_images'
 filenames = os.listdir(folder)
@@ -75,8 +68,6 @@ valid_filenames = filenames[:n_valid_samples]
 print('n train samples', len(train_filenames))
 print('n valid samples', len(valid_filenames))
 n_train_samples = len(filenames) - n_valid_samples
-
-
 
 
 
@@ -169,9 +160,7 @@ class generator(keras.utils.Sequence):
           
           
           
-          
-          
-          
+                  
           
 def create_downsample(channels, inputs):
     x = keras.layers.BatchNormalization(momentum=0.9)(inputs)
@@ -215,7 +204,7 @@ def create_network(input_size, channels, n_blocks=2, depth=3):
   
   
   
-# define iou or jaccard loss function
+# define iou loss function
 def iou_loss(y_true, y_pred):
     y_true = tf.reshape(y_true, [-1])
     y_pred = tf.reshape(y_pred, [-1])
@@ -223,40 +212,21 @@ def iou_loss(y_true, y_pred):
     score = (intersection + 1.) / (tf.reduce_sum(y_true) + tf.reduce_sum(y_pred) - intersection + 1.)
     return 1 - score
 
-# combine bce loss and iou loss
-def iou_bce_loss(y_true, y_pred):
-    return 0.5 * keras.losses.binary_crossentropy(y_true, y_pred) + 0.5 * iou_loss(y_true, y_pred)
 
-# mean iou as a metric
-def mean_iou(y_true, y_pred):
-    y_pred = tf.round(y_pred)
-    intersect = tf.reduce_sum(y_true * y_pred, axis=[1, 2, 3])
-    union = tf.reduce_sum(y_true, axis=[1, 2, 3]) + tf.reduce_sum(y_pred, axis=[1, 2, 3])
-    smooth = tf.ones(tf.shape(intersect))
-    return tf.reduce_mean((intersect + smooth) / (union - intersect + smooth))
 
 # create network and compiler
 model = create_network(input_size=256, channels=32, n_blocks=2, depth=4)
 model.compile(optimizer='adam',
-              loss=iou_bce_loss,
-              metrics=['accuracy', mean_iou])
+              loss=iou_loss,
+              metrics=['accuracy'])
 
-# cosine learning rate annealing
-def cosine_annealing(x):
-    lr = 0.001
-    epochs = 25
-    return lr*(np.cos(np.pi*x/epochs)+1.)/2
-learning_rate = tf.keras.callbacks.LearningRateScheduler(cosine_annealing)
 
 # create train and validation generators
 folder = '/content/train_images'
 train_gen = generator(folder, train_filenames, pneumonia_locations, batch_size=16, image_size=256, shuffle=True, augment=True, predict=False)
 valid_gen = generator(folder, valid_filenames, pneumonia_locations, batch_size=16, image_size=256, shuffle=False, predict=False)
 
-history = model.fit_generator(train_gen, validation_data=valid_gen, callbacks=[learning_rate], epochs=25, shuffle=True)
-
-
-
+history = model.fit_generator(train_gen, validation_data=valid_gen, callbacks=[learning_rate], epochs=1, shuffle=True)
 
 
 
