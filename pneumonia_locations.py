@@ -3,15 +3,15 @@
 
 # In[ ]:
 
-# empty dictionary
-pneumonia_loc = {}
-for i in range(1,len(info1)):
-  filename = info1.patientId[i]
-  location = info1.x[i],info1.y[i],info1.width[i],info1.height[i]
-  pneumonia = info1.Target[i]
-  if pneumonia == 1:
-    location = [int(float(i)) for i in location]
-    if filename in pneumonia_loc:
-      pneumonia_loc[filename].append(location)
-    else:
-      pneumonia_loc[filename] = [location]
+
+folder="/content/train_images/"
+pneum_locs=[]
+filenames=[]
+for filename in glob.glob("/content/train_images/*.dcm"):
+  ds=pydicom.read_file(filename)
+  boxes = info1[(info1['patientId'] == str(ds[0x010, 0x010].value)) & (info1['class'] == 'Lung Opacity')]
+  pneumonia_loc = boxes.iloc[:,2:6].values
+  filenames.append(str(ds[0x010, 0x010].value))
+  if len(pneumonia_loc)>0:
+    pneum_locs.append([str(ds[0x010, 0x010].value),pneumonia_loc])
+
