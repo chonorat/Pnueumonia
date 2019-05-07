@@ -226,7 +226,7 @@ folder = '/content/train_images'
 train_gen = generator(folder, train_filenames, pneumonia_locations, batch_size=16, image_size=256, shuffle=True, augment=True, predict=False)
 valid_gen = generator(folder, valid_filenames, pneumonia_locations, batch_size=16, image_size=256, shuffle=False, predict=False)
 
-history = model.fit_generator(train_gen, validation_data=valid_gen, callbacks=[learning_rate], epochs=1, shuffle=True)
+history = model.fit_generator(train_gen, validation_data=valid_gen, epochs=1, shuffle=True)
 
 
 
