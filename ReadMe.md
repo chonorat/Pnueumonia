@@ -36,6 +36,6 @@ Intersection over union is a measure of how accurately a bounding box represents
 
 #Predictions
 
-After the model trains, the kernel outputs predictions for the validation set along with predicted bounding boxes in blue and actual bounding boxes in red for the fist batch.
+After the model trains, the kernel outputs predictions for the validation set along with predicted bounding boxes in blue and candidate regions in red for the fist batch.
 
 Finally, the model is called to make predictions for the 3000 test images.  These predictions are saved to a CSV in the folder ‘/content/predictions.csv’.
