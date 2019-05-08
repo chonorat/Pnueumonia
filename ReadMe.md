@@ -22,7 +22,7 @@ Creates a dictionary of all pneumonia locations and adjusts the bounding box coo
 
 #Data Generator Class
 
-The Data Generator feeds formatted data to the network for training.  The generator samples batches of size 32, crops the images, resizes the images, and creates a mask for the image.  Masks for images with pneumonia have the value 1 on the area of the bounding box and the value 0 everywhere else.  Masks without a bounding box consist entirely of 0.
+The Data Generator feeds formatted data to the network for training.  The generator samples batches of size 16, crops the images, resizes the images, and creates a mask for the image.  Masks for images with pneumonia have the value 1 on the area of the bounding box and the value 0 everywhere else.  Masks without a bounding box consist entirely of 0.
 
 
 #Neural Network
