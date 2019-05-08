@@ -5,6 +5,7 @@ Below is a write for the Kaggle competition, RSNA Pneumonia Detection Challenge.
 #Importing the Kernel and Data
 
 To import the Kernel into google colab, use the link: https://github.com/chonorat/Pneumonia
+
 The first procedure in the kernel automatically imports and unzips the train images, test images, train labels, and class info documents from the Kaggle competition page.
 
 #Data Visualizations
