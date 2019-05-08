@@ -22,6 +22,10 @@ The Data Generator is feeds formatted data to the network for training.  The gen
 
 #Neural Network
 
+#Loss Function
+
+The intersection over union loss function divides the intersection of the true bounding box and the predicted bounding box by the union of the true bounding box and predicted bounding box.
+
 
 #Predictions
 
