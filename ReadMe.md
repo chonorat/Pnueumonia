@@ -26,10 +26,12 @@ The Data Generator feeds formatted data to the network for training.  The genera
 
 
 #Neural Network
+![Network Diagram](NetworkDiagram.svg)
+The CNN design is based on the Residual Network principle. In this simple application of a ResNet, there are 9 residual blocks each containing 2 convolution layers, 3 Pooling blocks each with 1 convolution layer, and an initializing convolution, giving this network a total depth of 22. This design included a downsample (MaxPool) every 3rd redidual block. This network is optimized for for an input image of size 200x200.
 
 #Loss Function
 
-The intersection over union loss function divides the intersection of the true bounding box and the predicted bounding box by the union of the true bounding box and predicted bounding box.
+Intersection over union is a measure of how accurately a bounding box represents its target. Intersection is the part of the estimated box that is correct. Union is the portion of the estimated box outside the correct region. The goal of an IoU loss function is to maximize this value such that the estimated bounding box contains the correct region while aiming to restrict the box tightly to the target.
 
 
 #Predictions
