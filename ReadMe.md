@@ -13,7 +13,12 @@ The first procedure in the kernel automatically imports and unzips the train ima
 After merging the training labels and class info from the csv’s provided, the kernel extracts patient information from the DICOM images such as Age and Sex.
 
 The kernel then plots the rate of pneumonia between males and females and an age histogram of patients with pneumonia and not with pneumonia.  No discernable differences were present in either of these comparisons.
-The images are then cropped in order to improve efficiency and accuracy of the neural network.  A sample image is then displayed which shows the cropped image as well as the bounding box of pneumonia, if the patient has pneumonia.
+
+The images are then cropped in order to improve efficiency and accuracy of the neural network.  A sample image is then displayed which shows the original image and bounding boxes along with the new cropped image and bounding boxes.
+
+#Pneumonia Dictionary
+
+Creates a dictionary of all pneumonia locations and adjusts the bounding box coordinates to reflect the image cropping.
 
 #Data Generator Class
 
