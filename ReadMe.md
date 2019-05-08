@@ -1,8 +1,10 @@
 RSNA Pneumonia Detection Challenge
 
 Below is a write for the Kaggle competition, RSNA Pneumonia Detection Challenge.  The goal of this write up is to serve as a tutorial for how the kernel can be implemented to predict if DICOM images of patient’s chest indicate pneumonia.  Furthermore, justifications for how the model was specified are provided below.
+
 Importing the Kernel and Data
-To import the Kernel into google colab, use the link:
+
+To import the Kernel into google colab, use the link: https://github.com/chonorat/Pneumonia
 The first procedure in the kernel automatically imports and unzips the train images, test images, train labels, and class info documents from the Kaggle competition page.
 
 Data Visualizations
