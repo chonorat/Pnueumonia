@@ -39,3 +39,7 @@ Intersection over union is a measure of how accurately a bounding box represents
 After the model trains, the kernel outputs predictions for the validation set along with predicted bounding boxes in blue and candidate regions in red for the fist batch.
 
 Finally, the model is called to make predictions for the 3000 test images.  These predictions are saved to a CSV in the folder ‘/content/predictions.csv’.
+
+#Performace
+
+The model was fully trained and developed but performed poorly due to a technical flaw which was overlooked. The flaw is that after cropping, the bounding box labels were not updated to correspond to the new images. Accuracies were sub 90%. This problem was resolved with a corrected generator which updated the dictionary values to reflect the cropping operation. The final model performs better than before the error was corrected. The model was simultaniously run for 200x200 input image size and 32 batch size and for 400x400 input size with 16 batch size. Unfortunately, even though these tests were run in parallel on two computers, each ran into snags which terminated due to reasons unrelated to the model and setup. What we know is that for the 200x200 simulation achieved 94% accuracy after 3  epochs . The 400x400 simulation achieved 95% accuracy after 5 epochs. Although we didnt get the model to be fully trained (15-25 epochs) we are confident in the robustness of this model.
